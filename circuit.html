@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détail du Circuit – StadeTours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Stade<span>Tours</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Accueil</a>
+      <a href="countries.html">Destinations</a>
+      <a href="circuits.html" class="active">Circuits</a>
+      <a href="cart.html" class="nav-cart">
+        🛒
+        <span class="cart-badge" id="cart-badge"></span>
+      </a>
+      <a href="user.html" class="btn btn-primary btn-sm">Mes Réservations</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ── Hero Image ─────────────────────────────────────────── -->
+<div class="circuit-detail-hero" id="detail-hero">
+  <img id="hero-img" src="" alt="">
+  <div class="circuit-detail-hero-content">
+    <div class="container">
+      <div class="breadcrumb" id="breadcrumb" style="color:rgba(255,255,255,.6);">
+        <a href="index.html" style="color:var(--gold)">Accueil</a>
+        <span>/</span>
+        <a id="bc-country" href="countries.html" style="color:var(--gold)">Destinations</a>
+        <span>/</span>
+        <span id="bc-title" style="color:rgba(255,255,255,.8)">Circuit</span>
+      </div>
+      <span class="section-label" id="hero-city"></span>
+      <h1 style="color:var(--white);text-shadow:0 2px 12px rgba(0,0,0,.4);" id="hero-title"></h1>
+    </div>
+  </div>
+</div>
+
+<!-- ── Detail Layout ──────────────────────────────────────── -->
+<div class="container">
+  <div class="circuit-layout">
+
+    <!-- LEFT: Info -->
+    <div class="circuit-description">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;align-items:center;">
+        <span id="detail-badge" class="card-badge" style="position:static;"></span>
+        <span id="detail-rating" style="color:var(--gold);font-weight:600;font-size:.95rem;"></span>
+        <span id="detail-duration" style="color:var(--muted);font-size:.88rem;"></span>
+      </div>
+
+      <h2 style="margin-bottom:16px;font-size:1.6rem;" id="detail-title"></h2>
+      <p id="detail-desc"></p>
+
+      <!-- Activities -->
+      <h3 style="margin-bottom:14px;font-size:1.1rem;">Activités Incluses</h3>
+      <div class="card-tags" id="detail-activities"></div>
+
+      <!-- Highlights -->
+      <h3 style="margin-top:36px;margin-bottom:14px;font-size:1.1rem;">Programme Inclus</h3>
+      <div class="highlights-list" id="detail-highlights"></div>
+
+      <!-- Related circuits -->
+      <div style="margin-top:60px;">
+        <h3 style="margin-bottom:24px;font-size:1.2rem;">Vous Aimerez Aussi</h3>
+        <div class="cards-grid" id="related-circuits"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Booking card -->
+    <div>
+      <div class="booking-card">
+        <div class="booking-price">
+          <div class="from">À partir de</div>
+          <div class="amount" id="book-price"></div>
+          <div class="per">par adulte · enfants à -50%</div>
+        </div>
+
+        <div class="form-group">
+          <label for="book-date">📅 Date de Voyage</label>
+          <input type="date" id="book-date">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="book-adults">👤 Adultes</label>
+            <select id="book-adults">
+              <option value="1">1 Adulte</option>
+              <option value="2" selected>2 Adultes</option>
+              <option value="3">3 Adultes</option>
+              <option value="4">4 Adultes</option>
+              <option value="5">5 Adultes</option>
+              <option value="6">6 Adultes</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="book-children">👶 Enfants</label>
+            <select id="book-children">
+              <option value="0" selected>0 Enfant</option>
+              <option value="1">1 Enfant</option>
+              <option value="2">2 Enfants</option>
+              <option value="3">3 Enfants</option>
+              <option value="4">4 Enfants</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="price-breakdown" id="price-breakdown">
+          <!-- filled by JS -->
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" id="add-to-cart-btn">
+          ✦ Ajouter au Panier
+        </button>
+        <a href="cart.html" class="btn btn-outline" style="width:100%;justify-content:center;margin-top:10px;">
+          Voir le Panier
+        </a>
+
+        <div style="text-align:center;margin-top:18px;font-size:.75rem;color:var(--muted);">
+          🔒 Réservation sécurisée · Annulation gratuite 48h avant
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Stade<span>Tours</span></span>
+        <p>Curated travel circuits for discerning explorers.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Destinations</h5>
+        <ul>
+          <li><a href="circuits.html?country=spain">Spain</a></li>
+          <li><a href="circuits.html?country=france">France</a></li>
+          <li><a href="circuits.html?country=italy">Italy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>La Société</h5>
+        <ul>
+          <li><a href="#">À Propos</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Assistance</h5>
+        <ul>
+          <li><a href="#">Centre d'Aide</a></li>
+          <li><a href="#">Annulation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 StadeTours. Tous droits réservés.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Done!</span>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/cart.js"></script>
+<script>
+// Header scroll
+window.addEventListener("scroll", () => {
+  document.getElementById("header").classList.toggle("scrolled", scrollY > 40);
+});
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("open");
+});
+
+const id = getParam("id");
+const circuit = CIRCUITS.find(c => c.id === id);
+
+if (!circuit) {
+  document.querySelector(".circuit-detail-hero").innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:100%;color:white;font-size:1.2rem;background:var(--navy);padding-top:80px;">
+      Circuit not found. <a href="circuits.html" style="color:var(--gold);margin-left:8px;">Browse all circuits →</a>
+    </div>`;
+} else {
+  // ── Hero
+  document.getElementById("hero-img").src = circuit.image;
+  document.getElementById("hero-img").alt = circuit.title;
+  document.getElementById("hero-city").textContent = `✦ ${circuit.city}`;
+  document.getElementById("hero-title").textContent = circuit.title;
+  document.getElementById("bc-title").textContent = circuit.title;
+  document.getElementById("bc-country").href = `circuits.html?country=${circuit.country}`;
+  document.getElementById("bc-country").textContent = circuit.country.charAt(0).toUpperCase()+circuit.country.slice(1);
+  document.title = `${circuit.title} – StadeTours`;
+
+  // ── Body
+  if (circuit.tag) document.getElementById("detail-badge").textContent = circuit.tag;
+  document.getElementById("detail-rating").textContent = `★ ${circuit.rating} (${circuit.reviews} reviews)`;
+  document.getElementById("detail-duration").textContent = `⏱ ${circuit.duration} days`;
+  document.getElementById("detail-title").textContent = circuit.title;
+  document.getElementById("detail-desc").textContent = circuit.description;
+  document.getElementById("book-price").textContent = formatPrice(circuit.price);
+
+  // Activities
+  const actEl = document.getElementById("detail-activities");
+  circuit.activities.forEach(a => {
+    actEl.insertAdjacentHTML("beforeend", `<span class="tag">${activityIcon(a)} ${activityLabel(a)}</span>`);
+  });
+
+  // Highlights
+  const hlEl = document.getElementById("detail-highlights");
+  circuit.highlights.forEach(h => {
+    hlEl.insertAdjacentHTML("beforeend", `<div class="highlight-item">${h}</div>`);
+  });
+
+  // ── Price breakdown
+  function updateBreakdown() {
+    const adults = parseInt(document.getElementById("book-adults").value) || 2;
+    const children = parseInt(document.getElementById("book-children").value) || 0;
+    const childPrice = circuit.price * 0.5;
+    const adultTotal = adults * circuit.price;
+    const childTotal = children * childPrice;
+    const grand = adultTotal + childTotal;
+
+    document.getElementById("price-breakdown").innerHTML = `
+      <div class="line"><span>${adults} Adulte${adults>1?"s":""} × ${formatPrice(circuit.price)}</span><span>${formatPrice(adultTotal)}</span></div>
+      ${children > 0 ? `<div class="line"><span>${children} Enfant${children>1?"s":""} × ${formatPrice(childPrice)}</span><span>${formatPrice(childTotal)}</span></div>` : ""}
+      <div class="line"><strong>Total</strong><strong>${formatPrice(grand)}</strong></div>
+    `;
+  }
+  updateBreakdown();
+  document.getElementById("book-adults").addEventListener("change", updateBreakdown);
+  document.getElementById("book-children").addEventListener("change", updateBreakdown);
+
+  // ── Set default date (1 month ahead)
+  const d = new Date();
+  d.setMonth(d.getMonth() + 1);
+  document.getElementById("book-date").value = d.toISOString().split("T")[0];
+  document.getElementById("book-date").min = new Date().toISOString().split("T")[0];
+
+  // ── Add to cart
+  document.getElementById("add-to-cart-btn").addEventListener("click", () => {
+    const date = document.getElementById("book-date").value;
+    if (!date) { showToast("⚠️", "Veuillez sélectionner une date de voyage."); return; }
+    const adults = document.getElementById("book-adults").value;
+    const children = document.getElementById("book-children").value;
+    const ok = Cart.add(circuit.id, date, adults, children);
+    if (ok) showToast("✅", `${circuit.title} ajouté à votre panier!`);
+  });
+
+  // ── Related circuits
+  const related = CIRCUITS.filter(c => c.country === circuit.country && c.id !== circuit.id).slice(0, 3);
+  const rg = document.getElementById("related-circuits");
+  related.forEach(c => rg.insertAdjacentHTML("beforeend", circuitCardHTML(c)));
+  observeCards(".circuit-card");
+  observeCards(".highlight-item");
+}
+
+function showToast(icon, msg) {
+  const t = document.getElementById("toast");
+  document.getElementById("toast-icon").textContent = icon;
+  document.getElementById("toast-msg").textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3200);
+}
+</script>
+</body>
+</html>

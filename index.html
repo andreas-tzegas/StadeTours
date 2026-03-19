@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StadeTours – Circuits Football & Stades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    .about-section { padding: 96px 0; background: var(--white); }
+    .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    @media (max-width: 860px) { .about-inner { grid-template-columns: 1fr; gap: 40px; } }
+    .about-img { border-radius: 18px; overflow: hidden; height: 440px; box-shadow: var(--shadow-lg); position: relative; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-img-badge { position: absolute; bottom: 24px; left: 24px; background: var(--gold); color: var(--navy); padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: .88rem; box-shadow: var(--shadow); }
+    .about-text p { color: #4b5563; line-height: 1.85; margin-bottom: 18px; font-size: .97rem; }
+    .about-text h2 { margin-bottom: 16px; }
+    .about-stats { display: flex; gap: 36px; margin-top: 36px; flex-wrap: wrap; }
+    .about-stat strong { display: block; font-family: var(--font-display); font-size: 2.2rem; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+    .about-stat span { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────────── -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Stade<span>Tours</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="countries.html">Destinations</a>
+      <a href="circuits.html">Circuits</a>
+      <a href="cart.html" class="nav-cart">🛒<span class="cart-badge" id="cart-badge"></span></a>
+      <a href="user.html" class="btn btn-primary btn-sm">Mes Réservations</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=1800&q=85');"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">✦ Spécialiste des circuits football depuis 2018</span>
+    <h1>Vivez le Football<br><em>De L'Intérieur</em></h1>
+    <p class="hero-sub">Visitez les stades les plus légendaires du monde. Vestiaires, pelouses, musées et trophées — des expériences uniques pour les vrais passionnés.</p>
+    <div class="search-bar">
+      <div class="field">
+        <label for="s-dest">Destination</label>
+        <select id="s-dest">
+          <option value="">Partout</option>
+          <option value="spain">Espagne</option>
+          <option value="france">France</option>
+          <option value="italy">Italie</option>
+          <option value="germany">Allemagne</option>
+          <option value="england">Angleterre</option>
+          <option value="portugal">Portugal</option>
+          <option value="netherlands">Pays-Bas</option>
+          <option value="brazil">Brésil</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="s-date">Date</label>
+        <input type="date" id="s-date">
+      </div>
+      <div class="field">
+        <label for="s-people">Voyageurs</label>
+        <select id="s-people">
+          <option>1 Adulte</option>
+          <option>2 Adultes</option>
+          <option>2 Adultes, 1 Enfant</option>
+          <option>2 Adultes, 2 Enfants</option>
+          <option>Groupe (5+)</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" id="search-btn">Rechercher ✦</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── À PROPOS ─────────────────────────────────────────────── -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text fade-up">
+        <span class="section-label">✦ Qui sommes-nous</span>
+        <h2>Les Coulisses du Football Mondial, Pour Vous</h2>
+        <div class="divider"></div>
+        <p>Fondée en 2018 par des passionnés de football, <strong>StadeTours</strong> est la première agence française spécialisée dans les circuits autour des stades et musées des plus grands clubs du monde.</p>
+        <p>Nous croyons que le football est bien plus qu'un sport — c'est une culture, une histoire, une émotion partagée. C'est pourquoi nous concevons chaque circuit pour vous faire vivre cette passion de l'intérieur : des vestiaires du Camp Nou aux pelouses du Maracanã, en passant par les galeries de trophées de San Siro.</p>
+        <p>Chaque visite est organisée en partenariat direct avec les clubs, garantissant un accès exclusif et une expérience authentique que vous ne trouverez nulle part ailleurs.</p>
+        <div class="about-stats">
+          <div class="about-stat"><strong>6+</strong><span>Années d'expérience</span></div>
+          <div class="about-stat"><strong>28</strong><span>Stades partenaires</span></div>
+          <div class="about-stat"><strong>12 000+</strong><span>Clients satisfaits</span></div>
+          <div class="about-stat"><strong>8</strong><span>Pays couverts</span></div>
+        </div>
+      </div>
+      <div class="about-img fade-up">
+        <img src="images/ball.avif" alt="Stade de football coulisses">
+        <div class="about-img-badge">⚽ Accès Exclusif Coulisses</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CAROUSEL ──────────────────────────────────────────────── -->
+<section class="section section--sand">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">✦ À la une</span>
+      <h2>Circuits en Vedette</h2>
+      <div class="divider"></div>
+      <p>Nos circuits les plus populaires sélectionnés par nos experts football.</p>
+    </div>
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carousel-track"></div>
+      <button class="carousel-btn prev" id="carousel-prev">&#8592;</button>
+      <button class="carousel-btn next" id="carousel-next">&#8594;</button>
+    </div>
+    <div class="carousel-dots" id="carousel-dots"></div>
+  </div>
+</section>
+
+<!-- ── CIRCUITS POPULAIRES ──────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">✦ Top circuits</span>
+      <h2>Les Plus Aimés de Nos Supporters</h2>
+      <div class="divider"></div>
+      <p>Choisis par des milliers de passionnés qui ont vécu l'expérience.</p>
+    </div>
+    <div class="cards-grid" id="featured-circuits"></div>
+    <div style="text-align:center;margin-top:44px;">
+      <a href="circuits.html" class="btn btn-dark">Voir Tous les Circuits →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESTINATIONS ─────────────────────────────────────────── -->
+<section class="section section--sand">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">✦ Explorer</span>
+      <h2>Destinations Football</h2>
+      <div class="divider"></div>
+      <p>Huit pays, les plus grands clubs du monde, des émotions incomparables.</p>
+    </div>
+    <div class="countries-grid" id="countries-grid"></div>
+  </div>
+</section>
+
+<!-- ── SERVICES ─────────────────────────────────────────────── -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">✦ Ce que nous proposons</span>
+      <h2>Chaque Expérience, Parfaitement Organisée</h2>
+      <div class="divider center"></div>
+      <p>Du tunnel des joueurs à la galerie des trophées, nous gérons chaque détail pour que vous viviez pleinement votre passion.</p>
+    </div>
+    <div class="services-grid" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- ── TÉMOIGNAGES ───────────────────────────────────────────── -->
+<section class="section section--sand">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">✦ Témoignages</span>
+      <h2>Ce Que Disent Nos Supporters</h2>
+      <div class="divider center"></div>
+    </div>
+    <div class="testimonials-grid" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Stade<span>Tours</span></span>
+        <p>Le spécialiste des circuits football & stades. Nous ne réservons pas des voyages — nous créons des souvenirs pour les vrais passionnés.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Destinations</h5>
+        <ul>
+          <li><a href="circuits.html?country=spain">Espagne</a></li>
+          <li><a href="circuits.html?country=france">France</a></li>
+          <li><a href="circuits.html?country=italy">Italie</a></li>
+          <li><a href="circuits.html?country=england">Angleterre</a></li>
+          <li><a href="circuits.html?country=germany">Allemagne</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>La Société</h5>
+        <ul>
+          <li><a href="#">À Propos</a></li>
+          <li><a href="#">Notre Histoire</a></li>
+          <li><a href="#">Carrières</a></li>
+          <li><a href="#">Presse</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Assistance</h5>
+        <ul>
+          <li><a href="#">Centre d'Aide</a></li>
+          <li><a href="#">Politique de Réservation</a></li>
+          <li><a href="#">Annulation</a></li>
+          <li><a href="#">Confidentialité</a></li>
+          <li><a href="#">Conditions Générales</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 StadeTours. Tous droits réservés.</span>
+      <span>Fait avec ♥ pour les passionnés de football</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><span class="toast-icon">✅</span><span id="toast-msg">Fait !</span></div>
+
+<script src="js/data.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/cart.js"></script>
+<script>
+window.addEventListener("scroll", () => {
+  document.getElementById("header").classList.toggle("scrolled", scrollY > 40);
+});
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("open");
+});
+document.getElementById("search-btn").addEventListener("click", () => {
+  const country = document.getElementById("s-dest").value;
+  window.location.href = country ? `circuits.html?country=${country}` : "circuits.html";
+});
+
+// Carousel
+const slides = FEATURED_CIRCUITS.slice(0, 4);
+let current = 0;
+const track = document.getElementById("carousel-track");
+const dotsEl = document.getElementById("carousel-dots");
+slides.forEach((c, i) => {
+  const slide = document.createElement("div");
+  slide.className = "carousel-slide";
+  slide.innerHTML = `
+    <img src="${c.image}" alt="${c.title}" loading="lazy">
+    <div class="carousel-slide-content">
+      <div>
+        <span class="section-label">✦ ${c.city}</span>
+        <h2>${c.title}</h2>
+        <p>${c.description.slice(0,120)}…</p>
+        <a href="circuit.html?id=${c.id}" class="btn btn-primary">Découvrir le Circuit</a>
+      </div>
+    </div>`;
+  track.appendChild(slide);
+  const dot = document.createElement("div");
+  dot.className = "carousel-dot" + (i===0?" active":"");
+  dot.addEventListener("click", () => goTo(i));
+  dotsEl.appendChild(dot);
+});
+function goTo(n) {
+  current = (n + slides.length) % slides.length;
+  track.style.transform = `translateX(-${current * 100}%)`;
+  document.querySelectorAll(".carousel-dot").forEach((d,i) => d.classList.toggle("active", i===current));
+}
+document.getElementById("carousel-prev").addEventListener("click", () => goTo(current-1));
+document.getElementById("carousel-next").addEventListener("click", () => goTo(current+1));
+setInterval(() => goTo(current+1), 5200);
+
+// Featured
+const grid = document.getElementById("featured-circuits");
+FEATURED_CIRCUITS.forEach(c => grid.insertAdjacentHTML("beforeend", circuitCardHTML(c)));
+observeCards(".circuit-card");
+
+// Countries
+const cg = document.getElementById("countries-grid");
+COUNTRIES.forEach(co => cg.insertAdjacentHTML("beforeend", countryCardHTML(co)));
+observeCards(".country-card");
+
+// Services
+const sg = document.getElementById("services-grid");
+SERVICES.forEach(s => {
+  sg.insertAdjacentHTML("beforeend", `
+    <div class="service-card fade-up">
+      <div class="service-icon">${s.icon}</div>
+      <h4>${s.title}</h4>
+      <p>${s.description}</p>
+    </div>`);
+});
+observeCards(".service-card");
+
+// Testimonials
+const tg = document.getElementById("testimonials-grid");
+TESTIMONIALS.forEach(t => {
+  tg.insertAdjacentHTML("beforeend", `
+    <div class="testimonial-card fade-up">
+      <div class="testi-stars">${"★".repeat(t.rating)}</div>
+      <p class="testi-text">"${t.text}"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">${t.avatar}</div>
+        <div>
+          <div class="testi-name">${t.name}</div>
+          <div class="testi-detail">${t.circuit}</div>
+        </div>
+      </div>
+    </div>`);
+});
+observeCards(".testimonial-card");
+observeCards(".fade-up");
+</script>
+</body>
+</html>

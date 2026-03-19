@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre Panier – StadeTours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<header class="site-header scrolled" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Stade<span>Tours</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Accueil</a>
+      <a href="countries.html">Destinations</a>
+      <a href="circuits.html">Circuits</a>
+      <a href="cart.html" class="nav-cart active">
+        🛒
+        <span class="cart-badge" id="cart-badge"></span>
+      </a>
+      <a href="user.html" class="btn btn-primary btn-sm">Mes Réservations</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <span>/</span>
+      <span>Votre Panier</span>
+    </div>
+    <span class="section-label">✦ Vérifier & Confirmer</span>
+    <h1>Votre Panier</h1>
+    <div class="divider"></div>
+    <p id="cart-subtitle">Vérifiez vos circuits sélectionnés avant de confirmer.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cart-layout" id="cart-layout">
+
+    <!-- LEFT: Items -->
+    <div id="cart-items-col">
+      <div id="cart-empty" class="cart-empty" style="display:none;">
+        <div class="icon">🧳</div>
+        <h3>Votre panier est vide</h3>
+        <p style="margin-bottom:24px;">Commencez par explorer nos circuits football.</p>
+        <a href="circuits.html" class="btn btn-dark">Explorer les Circuits →</a>
+      </div>
+      <div id="cart-items-list"></div>
+    </div>
+
+    <!-- RIGHT: Summary -->
+    <div id="cart-summary-col">
+      <div class="cart-summary-card">
+        <h3>Résumé de la Commande</h3>
+        <div id="summary-lines"></div>
+        <div class="summary-total">
+          <span>Total Général</span>
+          <span id="grand-total"></span>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:24px;" id="confirm-btn">
+          ✦ Confirmer la Réservation
+        </button>
+        <a href="circuits.html" style="display:block;text-align:center;margin-top:14px;font-size:.82rem;color:var(--muted);">
+          Continuer à explorer →
+        </a>
+        <div style="text-align:center;margin-top:18px;font-size:.75rem;color:var(--muted);">
+          🔒 Paiement sécurisé · Annulation gratuite 48h avant
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Confirmation modal -->
+<div id="confirm-modal" style="
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(13,27,42,.85);
+  z-index:9000;
+  align-items:center;justify-content:center;
+">
+  <div style="
+    background:var(--white);
+    border-radius:20px;
+    padding:48px 40px;
+    max-width:440px;
+    width:90%;
+    text-align:center;
+    animation:heroIn .4s ease;
+  ">
+    <div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+    <h2 style="margin-bottom:12px;font-size:1.6rem;">Réservation Confirmée !</h2>
+    <p style="color:var(--muted);margin-bottom:28px;font-size:.9rem;">Your circuits have been saved. You can review all your bookings in the Mes Réservations page.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="user.html" class="btn btn-primary">View Mes Réservations</a>
+      <button class="btn btn-outline" id="modal-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2025 StadeTours. Tous droits réservés.</span>
+      <a href="index.html">Back to Accueil</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Done!</span>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/cart.js"></script>
+<script>
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("open");
+});
+
+function showToast(icon, msg) {
+  const t = document.getElementById("toast");
+  document.querySelector(".toast-icon").textContent = icon;
+  document.getElementById("toast-msg").textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+function renderCart() {
+  const items = Cart.get();
+  const listEl = document.getElementById("cart-items-list");
+  const emptyEl = document.getElementById("cart-empty");
+  const summaryLines = document.getElementById("summary-lines");
+  const grandEl = document.getElementById("grand-total");
+  const confirmBtn = document.getElementById("confirm-btn");
+
+  listEl.innerHTML = "";
+  summaryLines.innerHTML = "";
+
+  if (items.length === 0) {
+    emptyEl.style.display = "block";
+    document.getElementById("cart-summary-col").style.display = "none";
+    document.getElementById("cart-subtitle").textContent = "Votre panier est actuellement vide.";
+    return;
+  }
+
+  emptyEl.style.display = "none";
+  document.getElementById("cart-summary-col").style.display = "block";
+  document.getElementById("cart-subtitle").textContent = `Vous avez ${items.length} circuit${items.length>1?"s":""} in your cart.`;
+
+  items.forEach(item => {
+    const el = document.createElement("div");
+    el.className = "cart-item";
+    el.innerHTML = `
+      <div class="cart-item-img">
+        <img src="${item.image}" alt="${item.title}" loading="lazy">
+      </div>
+      <div class="cart-item-body">
+        <div class="cart-item-title">${item.title}</div>
+        <div class="cart-item-sub">📍 ${item.city} · 📅 ${formatDate(item.date)}</div>
+        <div class="cart-item-controls">
+          <div style="display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);">
+            <label>Adultes</label>
+            <input class="qty-input" type="number" min="1" max="20" value="${item.adults}" data-id="${item.itemId}" data-type="adults">
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);">
+            <label>Enfants</label>
+            <input class="qty-input" type="number" min="0" max="20" value="${item.children}" data-id="${item.itemId}" data-type="children">
+          </div>
+          <button class="btn btn-danger" data-remove="${item.itemId}" style="margin-left:auto;">Supprimer</button>
+        </div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:4px;">Adultes: ${formatPrice(item.pricePerAdult)}/pp · Enfants: ${formatPrice(item.pricePerChild)}/pp</div>
+      </div>
+      <div style="padding:20px 22px 20px 0;display:flex;align-items:center;">
+        <div class="cart-item-price">${formatPrice(item.total)}</div>
+      </div>
+    `;
+    listEl.appendChild(el);
+
+    summaryLines.insertAdjacentHTML("beforeend", `
+      <div class="summary-line">
+        <span>${item.title.slice(0,28)}…</span>
+        <span>${formatPrice(item.total)}</span>
+      </div>`);
+  });
+
+  grandEl.textContent = formatPrice(Cart.grandTotal());
+
+  // Events – remove
+  document.querySelectorAll("[data-remove]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      Cart.remove(btn.dataset.remove);
+      showToast("🗑️", "Réservation supprimée.");
+      renderCart();
+    });
+  });
+
+  // Events – update qty
+  document.querySelectorAll(".qty-input").forEach(input => {
+    input.addEventListener("change", () => {
+      const id = input.dataset.id;
+      const item = Cart.get().find(i => i.itemId === id);
+      if (!item) return;
+      const adults   = input.dataset.type === "adults"   ? parseInt(input.value) : item.adults;
+      const children = input.dataset.type === "children" ? parseInt(input.value) : item.children;
+      Cart.update(id, adults, children);
+      renderCart();
+    });
+  });
+}
+
+renderCart();
+
+// Confirm order
+document.getElementById("confirm-btn").addEventListener("click", () => {
+  if (Cart.count() === 0) return;
+  // Move cart items to saved bookings in localStorage
+  const existing = JSON.parse(localStorage.getItem("wanderlux_bookings") || "[]");
+  const newBookings = [...existing, ...Cart.get()];
+  localStorage.setItem("wanderlux_bookings", JSON.stringify(newBookings));
+  Cart.clear();
+  document.getElementById("confirm-modal").style.display = "flex";
+  renderCart();
+});
+
+document.getElementById("modal-close").addEventListener("click", () => {
+  document.getElementById("confirm-modal").style.display = "none";
+});
+</script>
+</body>
+</html>

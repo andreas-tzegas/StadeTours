@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circuits Football – StadeTours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<header class="site-header scrolled" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Stade<span>Tours</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Accueil</a>
+      <a href="countries.html">Destinations</a>
+      <a href="circuits.html" class="active">Circuits</a>
+      <a href="cart.html" class="nav-cart">
+        🛒
+        <span class="cart-badge" id="cart-badge"></span>
+      </a>
+      <a href="user.html" class="btn btn-primary btn-sm">Mes Réservations</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb" id="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <span>/</span>
+      <a href="countries.html">Destinations</a>
+      <span>/</span>
+      <span id="breadcrumb-last">Tous les Circuits</span>
+    </div>
+    <span class="section-label">✦ Parcourir & Réserver</span>
+    <h1 id="page-title">Tous les Circuits</h1>
+    <div class="divider"></div>
+    <p id="page-desc">Explorez tous nos circuits football autour des plus grands stades du monde.</p>
+  </div>
+</div>
+
+<!-- ── Filters Bar ─────────────────────────────────────────── -->
+<div class="filters-bar">
+  <div class="container">
+    <div class="filters-inner">
+      <select class="filter-select" id="filter-country">
+        <option value="">Tous les Pays</option>
+      </select>
+      <select class="filter-select" id="filter-activity">
+        <option value="">Toutes les Activités</option>
+        <option value="stadium">⚽ Stade</option>
+        <option value="museum">🏛️ Musée</option>
+        <option value="restaurant">🍽️ Restauration</option>
+        <option value="city-tour">🗺️ Visite Guidée</option>
+      </select>
+      <select class="filter-select" id="filter-sort">
+        <option value="popular">Trier : Populaires</option>
+        <option value="price-asc">Prix : Croissant</option>
+        <option value="price-desc">Prix : Décroissant</option>
+        <option value="rating">Note</option>
+        <option value="duration">Durée</option>
+      </select>
+      <span class="results-count" id="results-count">0 circuits</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Circuits Grid ───────────────────────────────────────── -->
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="cards-grid" id="circuits-grid"></div>
+    <div id="no-results" class="no-results" style="display:none;">
+      <h3>Aucun circuit trouvé</h3>
+      <p>Essayez de modifier vos filtres pour voir plus de résultats.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Stade<span>Tours</span></span>
+        <p>Curated travel circuits for discerning explorers.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Destinations</h5>
+        <ul>
+          <li><a href="circuits.html?country=spain">Spain</a></li>
+          <li><a href="circuits.html?country=france">France</a></li>
+          <li><a href="circuits.html?country=italy">Italy</a></li>
+          <li><a href="circuits.html?country=japan">Japan</a></li>
+          <li><a href="circuits.html?country=greece">Greece</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>La Société</h5>
+        <ul>
+          <li><a href="#">À Propos</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Assistance</h5>
+        <ul>
+          <li><a href="#">Centre d'Aide</a></li>
+          <li><a href="#">Annulation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 StadeTours. Tous droits réservés.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Done!</span>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/cart.js"></script>
+<script>
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("open");
+});
+
+// ── Populate country filter ────────────────────────────────
+const countryFilter = document.getElementById("filter-country");
+COUNTRIES.forEach(co => {
+  const opt = document.createElement("option");
+  opt.value = co.id;
+  opt.textContent = `${co.flag} ${co.name}`;
+  countryFilter.appendChild(opt);
+});
+
+// ── Read URL params ────────────────────────────────────────
+const paramCountry = getParam("country") || "";
+if (paramCountry) {
+  countryFilter.value = paramCountry;
+  const co = COUNTRIES.find(c => c.id === paramCountry);
+  if (co) {
+    document.getElementById("page-title").textContent = `${co.flag} ${co.name} Circuits`;
+    document.getElementById("page-desc").textContent = `Explore all our curated experiences in ${co.name}. ${co.tagline}.`;
+    document.getElementById("breadcrumb-last").textContent = co.name;
+  }
+}
+
+// ── Render ─────────────────────────────────────────────────
+function renderCircuits() {
+  const country   = countryFilter.value;
+  const activity  = document.getElementById("filter-activity").value;
+  const sort      = document.getElementById("filter-sort").value;
+
+  let list = CIRCUITS.filter(c => {
+    if (country && c.country !== country) return false;
+    if (activity && !c.activities.includes(activity)) return false;
+    return true;
+  });
+
+  if (sort === "price-asc")  list.sort((a,b) => a.price - b.price);
+  if (sort === "price-desc") list.sort((a,b) => b.price - a.price);
+  if (sort === "rating")     list.sort((a,b) => b.rating - a.rating);
+  if (sort === "duration")   list.sort((a,b) => a.duration - b.duration);
+  if (sort === "popular")    list.sort((a,b) => b.reviews - a.reviews);
+
+  const grid = document.getElementById("circuits-grid");
+  grid.innerHTML = "";
+  document.getElementById("no-results").style.display = list.length ? "none" : "block";
+  document.getElementById("results-count").textContent = `${list.length} circuit${list.length!==1?"s":""}`;
+
+  list.forEach(c => grid.insertAdjacentHTML("beforeend", circuitCardHTML(c)));
+  observeCards(".circuit-card");
+}
+
+renderCircuits();
+["filter-country","filter-activity","filter-sort"].forEach(id =>
+  document.getElementById(id).addEventListener("change", renderCircuits)
+);
+</script>
+</body>
+</html>

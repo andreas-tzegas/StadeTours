@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Réservations – StadeTours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<header class="site-header scrolled" id="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">Stade<span>Tours</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html">Accueil</a>
+      <a href="countries.html">Destinations</a>
+      <a href="circuits.html">Circuits</a>
+      <a href="cart.html" class="nav-cart">
+        🛒
+        <span class="cart-badge" id="cart-badge"></span>
+      </a>
+      <a href="user.html" class="btn btn-primary btn-sm active">Mes Réservations</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ── User Hero ───────────────────────────────────────────── -->
+<div class="user-hero">
+  <div class="container">
+    <div class="user-avatar">JD</div>
+    <div>
+      <span class="section-label">✦ Bon retour</span>
+      <h2 style="color:var(--white);margin-bottom:4px;">John Doe</h2>
+      <p style="color:rgba(255,255,255,.6);font-size:.88rem;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e54515650105a515b7e5b535f5752105d5153">[email&#160;protected]</a> · Membre depuis 2024</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Stats Bar ───────────────────────────────────────────── -->
+<div style="background:var(--white);border-bottom:1px solid var(--sand-2);padding:24px 0;">
+  <div class="container" style="display:flex;gap:48px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:1.6rem;font-family:var(--font-display);font-weight:700;color:var(--navy);" id="stat-count">0</div>
+      <div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Réservations</div>
+    </div>
+    <div>
+      <div style="font-size:1.6rem;font-family:var(--font-display);font-weight:700;color:var(--navy);" id="stat-total">€0</div>
+      <div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Total Dépensé</div>
+    </div>
+    <div>
+      <div style="font-size:1.6rem;font-family:var(--font-display);font-weight:700;color:var(--navy);" id="stat-countries">0</div>
+      <div style="font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;">Pays Visités</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Bookings ────────────────────────────────────────────── -->
+<section class="bookings-list">
+  <div class="container">
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:4px;margin-bottom:32px;border-bottom:2px solid var(--sand-2);">
+      <button class="tab-btn active" data-tab="upcoming" style="padding:12px 24px;font-weight:600;font-size:.88rem;border-bottom:2px solid var(--gold);margin-bottom:-2px;color:var(--navy);background:none;border-left:none;border-right:none;border-top:none;cursor:pointer;transition:all .2s;">
+        À Venir
+      </button>
+      <button class="tab-btn" data-tab="past" style="padding:12px 24px;font-weight:600;font-size:.88rem;color:var(--muted);background:none;border:none;cursor:pointer;transition:all .2s;">
+        Passées
+      </button>
+    </div>
+
+    <div id="bookings-container"></div>
+
+    <div id="bookings-empty" style="display:none;text-align:center;padding:80px 24px;color:var(--muted);">
+      <div style="font-size:3.5rem;margin-bottom:20px;">🗺️</div>
+      <h3 style="font-family:var(--font-display);color:var(--navy);margin-bottom:8px;">Aucune réservation</h3>
+      <p style="margin-bottom:28px;">Vos réservations confirmées apparaîtront ici après le paiement.</p>
+      <a href="circuits.html" class="btn btn-dark">Explorer les Circuits →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Modifier Modal -->
+<div id="edit-modal" style="
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(13,27,42,.85);
+  z-index:9000;
+  align-items:center;justify-content:center;
+">
+  <div style="background:var(--white);border-radius:20px;padding:36px;max-width:400px;width:90%;animation:heroIn .3s ease;">
+    <h3 style="font-family:var(--font-display);margin-bottom:20px;">Modifier la Réservation</h3>
+    <input type="hidden" id="edit-item-id">
+    <div class="form-group">
+      <label for="edit-date">📅 Date de Voyage</label>
+      <input type="date" id="edit-date">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="edit-adults">👤 Adultes</label>
+        <select id="edit-adults">
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="edit-children">👶 Enfants</label>
+        <select id="edit-children">
+          <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-primary" id="edit-save" style="flex:1;justify-content:center;">Enregistrer</button>
+      <button class="btn btn-outline" id="edit-cancel" style="flex:1;justify-content:center;">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; 2025 StadeTours. Tous droits réservés.</span>
+      <a href="index.html">Back to Accueil</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">
+  <span class="toast-icon">✅</span>
+  <span id="toast-msg">Done!</span>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/data.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/cart.js"></script>
+<script>
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.getElementById("nav").classList.toggle("open");
+});
+
+function showToast(icon, msg) {
+  const t = document.getElementById("toast");
+  document.querySelector(".toast-icon").textContent = icon;
+  document.getElementById("toast-msg").textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+function getBookings() {
+  try { return JSON.parse(localStorage.getItem("wanderlux_bookings") || "[]"); } catch { return []; }
+}
+function saveBookings(b) { localStorage.setItem("wanderlux_bookings", JSON.stringify(b)); }
+
+let activeTab = "upcoming";
+
+function renderBookings() {
+  const bookings = getBookings();
+  const container = document.getElementById("bookings-container");
+  const emptyEl   = document.getElementById("bookings-empty");
+  const today     = new Date();
+
+  const filtered = bookings.filter(b => {
+    const bd = new Date(b.date);
+    return activeTab === "upcoming" ? bd >= today : bd < today;
+  });
+
+  // Stats
+  const total = bookings.reduce((s,b) => s+b.total, 0);
+  const uniqueCountries = [...new Set(bookings.map(b=>b.country))].length;
+  document.getElementById("stat-count").textContent = bookings.length;
+  document.getElementById("stat-total").textContent = formatPrice(total);
+  document.getElementById("stat-countries").textContent = uniqueCountries;
+
+  container.innerHTML = "";
+
+  if (filtered.length === 0) {
+    emptyEl.style.display = "block";
+    return;
+  }
+  emptyEl.style.display = "none";
+
+  filtered.forEach(b => {
+    const el = document.createElement("div");
+    el.className = "booking-card-row fade-up";
+    const isPassées = new Date(b.date) < today;
+    el.innerHTML = `
+      <div class="booking-row-img">
+        <img src="${b.image}" alt="${b.title}" loading="lazy">
+      </div>
+      <div class="booking-row-body">
+        <div class="booking-row-title">${b.title}</div>
+        <div class="booking-row-meta">
+          <span>📍 ${b.city}</span>
+          <span>📅 ${formatDate(b.date)}</span>
+          <span>👤 ${b.adults} adult${b.adults>1?"s":""}</span>
+          ${b.children > 0 ? `<span>👶 ${b.children} child${b.children>1?"ren":""}</span>` : ""}
+        </div>
+        ${isPassées ? `<span style="background:#f0fdf4;color:#16a34a;border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:700;width:fit-content;">✓ Terminé</span>` : `<span style="background:#eff6ff;color:#2563eb;border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:700;width:fit-content;">⏳ À Venir</span>`}
+      </div>
+      <div class="booking-row-actions">
+        <div class="booking-row-total">${formatPrice(b.total)}</div>
+        ${!isPassées ? `<button class="btn btn-outline btn-sm" data-edit="${b.itemId}">Modifier</button>` : ""}
+        <button class="btn btn-danger" data-delete="${b.itemId}" style="font-size:.78rem;">Remove</button>
+        <a href="circuit.html?id=${b.circuitId}" class="btn btn-sm" style="font-size:.78rem;background:var(--sand);color:var(--navy);">Voir le Circuit</a>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+
+  observeCards(".booking-card-row");
+
+  // Modifier events
+  document.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const b = getBookings().find(x => x.itemId === btn.dataset.edit);
+      if (!b) return;
+      document.getElementById("edit-item-id").value = b.itemId;
+      document.getElementById("edit-date").value = b.date;
+      document.getElementById("edit-adults").value = b.adults;
+      document.getElementById("edit-children").value = b.children;
+      document.getElementById("edit-modal").style.display = "flex";
+    });
+  });
+
+  // Delete events
+  document.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const bookings = getBookings().filter(x => x.itemId !== btn.dataset.delete);
+      saveBookings(bookings);
+      showToast("🗑️", "Réservation supprimée.");
+      renderBookings();
+    });
+  });
+}
+
+// Tabs
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    activeTab = btn.dataset.tab;
+    document.querySelectorAll(".tab-btn").forEach(b => {
+      b.style.color = "var(--muted)";
+      b.style.borderBottom = "2px solid transparent";
+    });
+    btn.style.color = "var(--navy)";
+    btn.style.borderBottom = "2px solid var(--gold)";
+    renderBookings();
+  });
+});
+
+// Modifier modal
+document.getElementById("edit-save").addEventListener("click", () => {
+  const id = document.getElementById("edit-item-id").value;
+  const date = document.getElementById("edit-date").value;
+  const adults = parseInt(document.getElementById("edit-adults").value);
+  const children = parseInt(document.getElementById("edit-children").value);
+  if (!date) return;
+
+  const bookings = getBookings();
+  const b = bookings.find(x => x.itemId === id);
+  if (b) {
+    b.date = date;
+    b.adults = adults;
+    b.children = children;
+    b.total = (adults * b.pricePerAdult) + (children * b.pricePerChild);
+  }
+  saveBookings(bookings);
+  document.getElementById("edit-modal").style.display = "none";
+  showToast("✅", "Booking updated
