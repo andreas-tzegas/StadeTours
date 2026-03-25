@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
@@ -226,11 +226,12 @@ renderCart();
 
 // Confirm order
 document.getElementById("confirm-btn").addEventListener("click", () => {
-  if (Cart.count() === 0) return;
-  // Move cart items to saved bookings in localStorage
-  const existing = JSON.parse(localStorage.getItem("wanderlux_bookings") || "[]");
-  const newBookings = [...existing, ...Cart.get()];
-  localStorage.setItem("wanderlux_bookings", JSON.stringify(newBookings));
+  const cartItems = Cart.get();
+  if (cartItems.length === 0) return;
+  let existing = [];
+  try { existing = JSON.parse(localStorage.getItem("stadetours_bookings") || "[]"); } catch(e) { existing = []; }
+  const merged = [...existing, ...cartItems];
+  localStorage.setItem("stadetours_bookings", JSON.stringify(merged));
   Cart.clear();
   document.getElementById("confirm-modal").style.display = "flex";
   renderCart();

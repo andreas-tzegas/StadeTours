@@ -7,13 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
 <header class="site-header scrolled" id="header">
   <div class="header-inner">
-    <a href="index.html" class="logo">Stade<span>Tours</span></a>
+    <a href="index.html" class="logo"><img src=" alt="StadeTours" class="logo-img" onerror="this.style.display='none';this.nextSibling.style.display='inline'"><span style="display:none">Stade<span>Tours</span></span></a>
     <nav class="nav" id="nav">
       <a href="index.html">Accueil</a>
       <a href="countries.html">Destinations</a>
@@ -124,11 +124,145 @@
   </div>
 </div>
 
+
+<!-- ── FORMULAIRE DE SATISFACTION ─────────────────────────── -->
+<section class="satisfaction-section">
+  <div class="container">
+    <div class="satisfaction-card fade-up">
+      <span class="section-label">✦ Votre Avis Compte</span>
+      <h2>Formulaire de Satisfaction</h2>
+      <p>Vous avez vécu une expérience StadeTours ? Partagez votre ressenti — cela nous aide à nous améliorer et à inspirer d'autres passionnés de football.</p>
+
+      <div id="satisfaction-form-wrap">
+        <form class="satisfaction-form" id="satisfaction-form" novalidate>
+
+          <!-- Note étoiles -->
+          <div class="form-group">
+            <label>Votre note globale *</label>
+            <div class="star-rating" id="star-rating">
+              <input type="radio" name="rating" id="s5" value="5"><label for="s5" title="Excellent">★</label>
+              <input type="radio" name="rating" id="s4" value="4"><label for="s4" title="Très bien">★</label>
+              <input type="radio" name="rating" id="s3" value="3"><label for="s3" title="Bien">★</label>
+              <input type="radio" name="rating" id="s2" value="2"><label for="s2" title="Moyen">★</label>
+              <input type="radio" name="rating" id="s1" value="1"><label for="s1" title="Décevant">★</label>
+            </div>
+          </div>
+
+          <!-- Nom + Email -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="sat-name">Nom & Prénom *</label>
+              <input type="text" id="sat-name" placeholder="Ex : Thomas Dupont" required>
+            </div>
+            <div class="form-group">
+              <label for="sat-email">Adresse e-mail *</label>
+              <input type="email" id="sat-email" placeholder="votre@email.com" required>
+            </div>
+          </div>
+
+          <!-- Circuit visité -->
+          <div class="form-group">
+            <label for="sat-circuit">Circuit visité</label>
+            <input type="text" id="sat-circuit" placeholder="Ex : Camp Nou & Musée du FC Barcelone">
+          </div>
+
+          <!-- Commentaire -->
+          <div class="form-group">
+            <label for="sat-comment">Votre commentaire *</label>
+            <textarea id="sat-comment" placeholder="Partagez votre expérience, ce que vous avez aimé, vos suggestions…" required></textarea>
+          </div>
+
+          <!-- RGPD -->
+          <label class="rgpd-check">
+            <input type="checkbox" id="sat-rgpd" required>
+            J'accepte que StadeTours utilise mes données pour traiter mon avis, conformément à notre <a href="rgpd.html" target="_blank">politique de confidentialité</a>. Mes données ne seront pas transmises à des tiers.
+          </label>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;">
+            ✦ Envoyer mon Avis
+          </button>
+        </form>
+      </div>
+
+      <!-- Message succès -->
+      <div class="satisfaction-success" id="satisfaction-success">
+        <div class="icon">🏆</div>
+        <h3>Merci pour votre avis !</h3>
+        <p>Votre retour a bien été enregistré. Il nous aide à offrir la meilleure expérience possible à tous les passionnés de football.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var form = document.getElementById("satisfaction-form");
+  if (!form) return;
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var rating = document.querySelector('input[name="rating"]:checked');
+    var name = document.getElementById("sat-name").value.trim();
+    var email = document.getElementById("sat-email").value.trim();
+    var comment = document.getElementById("sat-comment").value.trim();
+    var rgpd = document.getElementById("sat-rgpd").checked;
+
+    if (!rating) { alert("Veuillez sélectionner une note."); return; }
+    if (!name)   { alert("Veuillez entrer votre nom."); return; }
+    if (!email || !email.includes("@")) { alert("Veuillez entrer un e-mail valide."); return; }
+    if (!comment){ alert("Veuillez entrer un commentaire."); return; }
+    if (!rgpd)   { alert("Veuillez accepter la politique de confidentialité."); return; }
+
+    // Mock save to localStorage
+    var reviews = JSON.parse(localStorage.getItem("stadetours_reviews") || "[]");
+    reviews.push({
+      name: name, email: email, rating: rating.value,
+      circuit: document.getElementById("sat-circuit").value,
+      comment: comment, date: new Date().toISOString()
+    });
+    localStorage.setItem("stadetours_reviews", JSON.stringify(reviews));
+
+    document.getElementById("satisfaction-form-wrap").style.display = "none";
+    document.getElementById("satisfaction-success").style.display = "block";
+  });
+})();
+</script>
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-bottom">
-      <span>&copy; 2025 StadeTours. Tous droits réservés.</span>
-      <a href="index.html">Back to Accueil</a>
+      <span>&copy; 2025 StadeTours. Tous droits réservés. Fait avec ♥ pour les passionnés de football</span>
+      <button class="footer-legal-btn" id="toggle-legal" onclick="document.getElementById('legal-panel').classList.toggle('open')">Mentions légales & RGPD ▾</button>
+    </div>
+
+    <!-- ── MENTIONS LÉGALES INLINE ─────────────────────────── -->
+    <div class="legal-panel" id="legal-panel">
+      <div class="legal-grid">
+        <div class="legal-col">
+          <h6>Éditeur du site</h6>
+          <p>StadeTours SAS · 12 Rue du Stade, 69000 Lyon<br>
+          SIRET : 123 456 789 00012 · RCS Lyon B 123 456 789<br>
+          Directeur de publication : Andreas Tzegas<br>
+          Contact : <a href="mailto:contact@stadetours.fr">contact@stadetours.fr</a></p>
+        </div>
+        <div class="legal-col">
+          <h6>Hébergement</h6>
+          <p>GitHub Pages / Vercel<br>
+          San Francisco, CA, États-Unis<br>
+          Les données sont traitées dans le respect du RGPD (UE 2016/679).</p>
+        </div>
+        <div class="legal-col">
+          <h6>Données personnelles (RGPD)</h6>
+          <p>Responsable du traitement : StadeTours SAS<br>
+          DPO : <a href="mailto:rgpd@stadetours.fr">rgpd@stadetours.fr</a><br>
+          Droits d'accès, rectification, suppression : contactez notre DPO.<br>
+          Réclamation : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></p>
+        </div>
+        <div class="legal-col">
+          <h6>Cookies & Propriété intellectuelle</h6>
+          <p>Ce site utilise des cookies essentiels au fonctionnement. Aucun cookie publicitaire sans consentement préalable.<br>
+          Tout le contenu (textes, images, logo) est protégé par le droit d'auteur © 2025 StadeTours.</p>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
@@ -154,31 +288,51 @@ function showToast(icon, msg) {
   setTimeout(() => t.classList.remove("show"), 3200);
 }
 
+const BOOKINGS_KEY = "stadetours_bookings";
+
 function getBookings() {
-  try { return JSON.parse(localStorage.getItem("wanderlux_bookings") || "[]"); } catch { return []; }
+  try { return JSON.parse(localStorage.getItem(BOOKINGS_KEY) || "[]"); } catch { return []; }
 }
-function saveBookings(b) { localStorage.setItem("wanderlux_bookings", JSON.stringify(b)); }
+function saveBookings(b) { localStorage.setItem(BOOKINGS_KEY, JSON.stringify(b)); }
+
+// Parse YYYY-MM-DD safely without timezone issues
+function parseLocalDate(str) {
+  if (!str) return new Date(0);
+  const [y, m, d] = str.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
 
 let activeTab = "upcoming";
 
 function renderBookings() {
-  const bookings = getBookings();
+  const allBookings = getBookings();
   const container = document.getElementById("bookings-container");
   const emptyEl   = document.getElementById("bookings-empty");
-  const today     = new Date();
 
-  const filtered = bookings.filter(b => {
-    const bd = new Date(b.date);
+  // Today at midnight, local time — no timezone issues
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Filter by tab
+  const filtered = allBookings.filter(b => {
+    const bd = parseLocalDate(b.date);
     return activeTab === "upcoming" ? bd >= today : bd < today;
   });
 
-  // Stats
-  const total = bookings.reduce((s,b) => s+b.total, 0);
-  const uniqueCountries = [...new Set(bookings.map(b=>b.country))].length;
-  document.getElementById("stat-count").textContent = bookings.length;
-  document.getElementById("stat-total").textContent = formatPrice(total);
+  // Sort upcoming ascending, past descending
+  filtered.sort((a, b) => {
+    const diff = parseLocalDate(a.date) - parseLocalDate(b.date);
+    return activeTab === "upcoming" ? diff : -diff;
+  });
+
+  // Update stats (always from ALL bookings)
+  const totalSpent = allBookings.reduce((s, b) => s + (b.total || 0), 0);
+  const uniqueCountries = new Set(allBookings.map(b => b.country)).size;
+  document.getElementById("stat-count").textContent = allBookings.length;
+  document.getElementById("stat-total").textContent = formatPrice(totalSpent);
   document.getElementById("stat-countries").textContent = uniqueCountries;
 
+  // Clear and render
   container.innerHTML = "";
 
   if (filtered.length === 0) {
@@ -188,27 +342,29 @@ function renderBookings() {
   emptyEl.style.display = "none";
 
   filtered.forEach(b => {
+    const isPast = parseLocalDate(b.date) < today;
     const el = document.createElement("div");
     el.className = "booking-card-row fade-up";
-    const isPassées = new Date(b.date) < today;
     el.innerHTML = `
       <div class="booking-row-img">
-        <img src="${b.image}" alt="${b.title}" loading="lazy">
+        <img src="${b.image || ''}" alt="${b.title || 'Circuit'}" loading="lazy">
       </div>
       <div class="booking-row-body">
-        <div class="booking-row-title">${b.title}</div>
+        <div class="booking-row-title">${b.title || '—'}</div>
         <div class="booking-row-meta">
-          <span>📍 ${b.city}</span>
+          <span>📍 ${b.city || '—'}</span>
           <span>📅 ${formatDate(b.date)}</span>
-          <span>👤 ${b.adults} adult${b.adults>1?"s":""}</span>
-          ${b.children > 0 ? `<span>👶 ${b.children} child${b.children>1?"ren":""}</span>` : ""}
+          <span>👤 ${b.adults || 1} adulte${(b.adults || 1) > 1 ? "s" : ""}</span>
+          ${(b.children || 0) > 0 ? `<span>👶 ${b.children} enfant${b.children > 1 ? "s" : ""}</span>` : ""}
         </div>
-        ${isPassées ? `<span style="background:#f0fdf4;color:#16a34a;border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:700;width:fit-content;">✓ Terminé</span>` : `<span style="background:#eff6ff;color:#2563eb;border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:700;width:fit-content;">⏳ À Venir</span>`}
+        ${isPast
+          ? `<span style="background:#f0fdf4;color:#16a34a;border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:700;display:inline-block;">✓ Terminé</span>`
+          : `<span style="background:#eff6ff;color:#2563eb;border-radius:50px;padding:4px 12px;font-size:.72rem;font-weight:700;display:inline-block;">⏳ À Venir</span>`}
       </div>
       <div class="booking-row-actions">
-        <div class="booking-row-total">${formatPrice(b.total)}</div>
-        ${!isPassées ? `<button class="btn btn-outline btn-sm" data-edit="${b.itemId}">Modifier</button>` : ""}
-        <button class="btn btn-danger" data-delete="${b.itemId}" style="font-size:.78rem;">Remove</button>
+        <div class="booking-row-total">${formatPrice(b.total || 0)}</div>
+        ${!isPast ? `<button class="btn btn-outline btn-sm" data-edit="${b.itemId}">Modifier</button>` : ""}
+        <button class="btn btn-danger" data-delete="${b.itemId}" style="font-size:.78rem;">Supprimer</button>
         <a href="circuit.html?id=${b.circuitId}" class="btn btn-sm" style="font-size:.78rem;background:var(--sand);color:var(--navy);">Voir le Circuit</a>
       </div>
     `;
@@ -217,7 +373,7 @@ function renderBookings() {
 
   observeCards(".booking-card-row");
 
-  // Modifier events
+  // Edit events
   document.querySelectorAll("[data-edit]").forEach(btn => {
     btn.addEventListener("click", () => {
       const b = getBookings().find(x => x.itemId === btn.dataset.edit);
@@ -233,8 +389,8 @@ function renderBookings() {
   // Delete events
   document.querySelectorAll("[data-delete]").forEach(btn => {
     btn.addEventListener("click", () => {
-      const bookings = getBookings().filter(x => x.itemId !== btn.dataset.delete);
-      saveBookings(bookings);
+      if (!confirm("Supprimer cette réservation ?")) return;
+      saveBookings(getBookings().filter(x => x.itemId !== btn.dataset.delete));
       showToast("🗑️", "Réservation supprimée.");
       renderBookings();
     });
@@ -255,13 +411,13 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   });
 });
 
-// Modifier modal
+// Edit modal save
 document.getElementById("edit-save").addEventListener("click", () => {
   const id = document.getElementById("edit-item-id").value;
   const date = document.getElementById("edit-date").value;
-  const adults = parseInt(document.getElementById("edit-adults").value);
-  const children = parseInt(document.getElementById("edit-children").value);
-  if (!date) return;
+  const adults = parseInt(document.getElementById("edit-adults").value) || 1;
+  const children = parseInt(document.getElementById("edit-children").value) || 0;
+  if (!date) { showToast("⚠️", "Veuillez sélectionner une date."); return; }
 
   const bookings = getBookings();
   const b = bookings.find(x => x.itemId === id);
@@ -269,8 +425,45 @@ document.getElementById("edit-save").addEventListener("click", () => {
     b.date = date;
     b.adults = adults;
     b.children = children;
-    b.total = (adults * b.pricePerAdult) + (children * b.pricePerChild);
+    b.total = (adults * (b.pricePerAdult || 0)) + (children * (b.pricePerChild || 0));
   }
   saveBookings(bookings);
   document.getElementById("edit-modal").style.display = "none";
-  showToast("✅", "Booking updated
+  showToast("✅", "Réservation mise à jour.");
+  renderBookings();
+});
+
+document.getElementById("edit-cancel").addEventListener("click", () => {
+  document.getElementById("edit-modal").style.display = "none";
+});
+
+renderBookings();
+</script>
+
+<!-- ── BANDEAU COOKIES RGPD ─────────────────────────────── -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>🍪 Nous utilisons des cookies pour améliorer votre expérience sur StadeTours. En continuant votre navigation, vous acceptez notre politique de confidentialité (voir Mentions légales) conformément au RGPD.</p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-btn-refuse" id="cookie-refuse">Refuser</button>
+    <button class="cookie-btn cookie-btn-accept" id="cookie-accept">Accepter ✦</button>
+  </div>
+</div>
+<script>
+(function(){
+  var b = document.getElementById("cookie-banner");
+  if (!b) return;
+  if (!localStorage.getItem("st_cookie_consent")) {
+    setTimeout(function(){ b.classList.add("visible"); }, 900);
+  }
+  document.getElementById("cookie-accept").addEventListener("click", function(){
+    localStorage.setItem("st_cookie_consent","accepted");
+    b.classList.remove("visible");
+  });
+  document.getElementById("cookie-refuse").addEventListener("click", function(){
+    localStorage.setItem("st_cookie_consent","refused");
+    b.classList.remove("visible");
+  });
+})();
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 //  cart.js – Cart logic using localStorage
 // ============================================================
 
-const CART_KEY = "wanderlux_cart";
+const CART_KEY = "stadetours_cart";
 
 const Cart = {
   get() {
