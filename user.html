@@ -11,9 +11,13 @@
 </head>
 <body>
 
+<!-- ── HEADER ──────────────────────────────────────────────── -->
 <header class="site-header scrolled" id="header">
   <div class="header-inner">
-    <a href="index.html" class="logo"><img src=" alt="StadeTours" class="logo-img" onerror="this.style.display='none';this.nextSibling.style.display='inline'"><span style="display:none">Stade<span>Tours</span></span></a>
+    <a href="index.html" class="logo-brand">
+      <img src="images/Logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
+      <span class="logo">Stade<span>Tours</span></span>
+    </a>
     <nav class="nav" id="nav">
       <a href="index.html">Accueil</a>
       <a href="countries.html">Destinations</a>
@@ -29,6 +33,7 @@
     </button>
   </div>
 </header>
+
 
 <!-- ── User Hero ───────────────────────────────────────────── -->
 <div class="user-hero">
@@ -128,10 +133,17 @@
 <!-- ── FORMULAIRE DE SATISFACTION ─────────────────────────── -->
 <section class="satisfaction-section">
   <div class="container">
-    <div class="satisfaction-card fade-up">
-      <span class="section-label">✦ Votre Avis Compte</span>
-      <h2>Formulaire de Satisfaction</h2>
-      <p>Vous avez vécu une expérience StadeTours ? Partagez votre ressenti — cela nous aide à nous améliorer et à inspirer d'autres passionnés de football.</p>
+    <div class="satisfaction-card">
+
+      <!-- En-tête avec logo -->
+      <div class="sat-card-header">
+        <img src="images/Logo.png" alt="StadeTours" class="sat-logo" onerror="this.style.display='none'">
+        <div>
+          <span class="section-label">✦ Votre Avis Compte</span>
+          <h2>Formulaire de Satisfaction</h2>
+          <p>Vous avez vécu une expérience StadeTours ? Partagez votre ressenti et aidez-nous à nous améliorer.</p>
+        </div>
+      </div>
 
       <div id="satisfaction-form-wrap">
         <form class="satisfaction-form" id="satisfaction-form" novalidate>
@@ -175,7 +187,7 @@
           <!-- RGPD -->
           <label class="rgpd-check">
             <input type="checkbox" id="sat-rgpd" required>
-            J'accepte que StadeTours utilise mes données pour traiter mon avis, conformément à notre <a href="rgpd.html" target="_blank">politique de confidentialité</a>. Mes données ne seront pas transmises à des tiers.
+            J'accepte que StadeTours utilise mes données pour traiter mon avis, conformément à notre <a href="#" target="_blank">politique de confidentialité</a>.
           </label>
 
           <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;">
@@ -184,12 +196,13 @@
         </form>
       </div>
 
-      <!-- Message succès -->
-      <div class="satisfaction-success" id="satisfaction-success">
+      <!-- Message succès (caché par défaut) -->
+      <div class="satisfaction-success" id="satisfaction-success" style="display:none;">
         <div class="icon">🏆</div>
         <h3>Merci pour votre avis !</h3>
         <p>Votre retour a bien été enregistré. Il nous aide à offrir la meilleure expérience possible à tous les passionnés de football.</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -227,52 +240,49 @@
 })();
 </script>
 
-<footer class="site-footer">
+<footer class="footer-simple">
   <div class="container">
-    <div class="footer-bottom">
-      <span>&copy; 2025 StadeTours. Tous droits réservés. Fait avec ♥ pour les passionnés de football</span>
-      <button class="footer-legal-btn" id="toggle-legal" onclick="document.getElementById('legal-panel').classList.toggle('open')">Mentions légales & RGPD ▾</button>
-    </div>
-
-    <!-- ── MENTIONS LÉGALES INLINE ─────────────────────────── -->
-    <div class="legal-panel" id="legal-panel">
-      <div class="legal-grid">
-        <div class="legal-col">
-          <h6>Éditeur du site</h6>
-          <p>StadeTours SAS · 12 Rue du Stade, 69000 Lyon<br>
-          SIRET : 123 456 789 00012 · RCS Lyon B 123 456 789<br>
-          Directeur de publication : Andreas Tzegas<br>
-          Contact : <a href="mailto:contact@stadetours.fr">contact@stadetours.fr</a></p>
-        </div>
-        <div class="legal-col">
-          <h6>Hébergement</h6>
-          <p>GitHub Pages / Vercel<br>
-          San Francisco, CA, États-Unis<br>
-          Les données sont traitées dans le respect du RGPD (UE 2016/679).</p>
-        </div>
-        <div class="legal-col">
-          <h6>Données personnelles (RGPD)</h6>
-          <p>Responsable du traitement : StadeTours SAS<br>
-          DPO : <a href="mailto:rgpd@stadetours.fr">rgpd@stadetours.fr</a><br>
-          Droits d'accès, rectification, suppression : contactez notre DPO.<br>
-          Réclamation : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></p>
-        </div>
-        <div class="legal-col">
-          <h6>Cookies & Propriété intellectuelle</h6>
-          <p>Ce site utilise des cookies essentiels au fonctionnement. Aucun cookie publicitaire sans consentement préalable.<br>
-          Tout le contenu (textes, images, logo) est protégé par le droit d'auteur © 2025 StadeTours.</p>
-        </div>
-      </div>
-    </div>
+    <p class="footer-simple-copy">
+      &copy; 2025 <strong>StadeTours</strong>. Tous droits réservés. Fait avec <span>♥</span> pour les passionnés de football
+    </p>
+    <button class="footer-legal-toggle" onclick="document.getElementById('legal-panel').classList.toggle('open')">
+      Mentions légales & RGPD ▾
+    </button>
   </div>
 </footer>
+<div class="legal-panel" id="legal-panel">
+  <div class="legal-grid">
+    <div class="legal-col">
+      <h6>Éditeur du site</h6>
+      <p>StadeTours SAS · 12 Rue du Stade, 69000 Lyon<br>
+      Directeur de publication : Andreas Tzegas<br>
+      Contact : contact@stadetours.fr</p>
+    </div>
+    <div class="legal-col">
+      <h6>Hébergement</h6>
+      <p>GitHub Pages / Vercel<br>
+      Données traitées dans le respect du RGPD (UE 2016/679).</p>
+    </div>
+    <div class="legal-col">
+      <h6>Données personnelles</h6>
+      <p>Responsable : StadeTours SAS<br>
+      Droits d'accès & suppression : dpo@stadetours.fr<br>
+      Réclamation : <a href="https://www.cnil.fr" target="_blank">cnil.fr</a></p>
+    </div>
+    <div class="legal-col">
+      <h6>Cookies</h6>
+      <p>Cookies essentiels uniquement. Aucun cookie publicitaire sans consentement.<br>
+      © 2025 StadeTours — tous droits réservés.</p>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast">
   <span class="toast-icon">✅</span>
   <span id="toast-msg">Done!</span>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/data.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/data.js"></script>
 <script src="js/helpers.js"></script>
 <script src="js/cart.js"></script>
 <script>
@@ -440,30 +450,35 @@ document.getElementById("edit-cancel").addEventListener("click", () => {
 renderBookings();
 </script>
 
-<!-- ── BANDEAU COOKIES RGPD ─────────────────────────────── -->
-<div class="cookie-banner" id="cookie-banner">
-  <p>🍪 Nous utilisons des cookies pour améliorer votre expérience sur StadeTours. En continuant votre navigation, vous acceptez notre politique de confidentialité (voir Mentions légales) conformément au RGPD.</p>
-  <div class="cookie-actions">
-    <button class="cookie-btn cookie-btn-refuse" id="cookie-refuse">Refuser</button>
-    <button class="cookie-btn cookie-btn-accept" id="cookie-accept">Accepter ✦</button>
+<!-- ── COOKIE POPUP RGPD ─────────────────────────────────── -->
+<div class="cookie-overlay" id="cookie-overlay">
+  <div class="cookie-popup">
+    <div class="cookie-popup-icon">🍪</div>
+    <h3>Nous utilisons des cookies</h3>
+    <p>StadeTours utilise des cookies essentiels pour le bon fonctionnement du site. En cliquant <strong>Accepter</strong>, vous consentez à leur utilisation conformément au RGPD.</p>
+    <div class="cookie-popup-btns">
+      <button class="btn btn-outline" id="cookie-refuse">Refuser</button>
+      <button class="btn btn-primary" id="cookie-accept">Accepter ✦</button>
+    </div>
   </div>
 </div>
+
 <script>
-(function(){
-  var b = document.getElementById("cookie-banner");
-  if (!b) return;
-  if (!localStorage.getItem("st_cookie_consent")) {
-    setTimeout(function(){ b.classList.add("visible"); }, 900);
-  }
-  document.getElementById("cookie-accept").addEventListener("click", function(){
-    localStorage.setItem("st_cookie_consent","accepted");
-    b.classList.remove("visible");
-  });
-  document.getElementById("cookie-refuse").addEventListener("click", function(){
-    localStorage.setItem("st_cookie_consent","refused");
-    b.classList.remove("visible");
-  });
-})();
+function closeCookiePopup(choice) {
+  localStorage.setItem("st_cookie_consent", choice);
+  var o = document.getElementById("cookie-overlay");
+  if (o) o.classList.remove("visible");
+}
+document.getElementById("cookie-accept").addEventListener("click", function(){ closeCookiePopup("accepted"); });
+document.getElementById("cookie-refuse").addEventListener("click", function(){ closeCookiePopup("refused"); });
+document.getElementById("cookie-overlay").addEventListener("click", function(e){ if (e.target === this) closeCookiePopup("refused"); });
+
+if (!localStorage.getItem("st_cookie_consent")) {
+  setTimeout(function(){
+    var o = document.getElementById("cookie-overlay");
+    if (o) o.classList.add("visible");
+  }, 800);
+}
 </script>
 </body>
 </html>

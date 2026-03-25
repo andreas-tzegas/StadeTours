@@ -151,6 +151,21 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
 }
 .logo span { color: var(--gold); }
 
+/* Logo + nom côte à côte dans le header */
+.logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.header-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 .nav { display: flex; align-items: center; gap: 32px; margin-left: auto; }
 .nav a {
   color: rgba(255,255,255,.8);
@@ -940,3 +955,221 @@ h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--sand); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 6px; }
+
+/* ── Satisfaction Section ────────────────────────────────── */
+.satisfaction-section {
+  padding: 80px 0;
+  background: var(--navy);
+}
+.satisfaction-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 48px 52px;
+  max-width: 780px;
+  margin: 0 auto;
+  box-shadow: 0 16px 56px rgba(0,0,0,.22);
+}
+@media (max-width: 640px) { .satisfaction-card { padding: 28px 20px; } }
+
+.sat-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  margin-bottom: 36px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid var(--sand-2);
+}
+.sat-logo {
+  height: 68px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+.sat-card-header h2 { margin-bottom: 4px; font-size: 1.6rem; }
+.sat-card-header p  { color: var(--muted); font-size: .9rem; margin: 0; }
+@media (max-width: 540px) {
+  .sat-card-header { flex-direction: column; gap: 14px; }
+  .sat-logo { height: 50px; }
+}
+
+/* Stars */
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4px;
+  width: fit-content;
+  margin-top: 6px;
+}
+.star-rating input[type="radio"] { display: none; }
+.star-rating label {
+  font-size: 2rem;
+  color: var(--sand-2);
+  cursor: pointer;
+  transition: color .15s, transform .15s;
+  line-height: 1;
+}
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: var(--gold);
+  transform: scale(1.18);
+}
+
+/* Textarea */
+.satisfaction-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--sand-2);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  color: var(--text);
+  background: var(--cream);
+  resize: vertical;
+  min-height: 120px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+.satisfaction-form textarea:focus { border-color: var(--gold); }
+
+/* RGPD checkbox */
+.rgpd-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.rgpd-check input { margin-top: 3px; accent-color: var(--gold); flex-shrink: 0; }
+.rgpd-check a { color: var(--gold); text-decoration: underline; }
+
+/* Success state */
+.satisfaction-success {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+.satisfaction-success .icon { font-size: 3.5rem; margin-bottom: 16px; }
+.satisfaction-success h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 8px; color: var(--navy); }
+.satisfaction-success p { color: var(--muted); }
+
+/* ── Cookie Popup (modal) ─────────────────────────────────── */
+.cookie-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,27,42,.72);
+  z-index: 9990;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+.cookie-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.cookie-popup {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 36px 40px;
+  max-width: 560px;
+  width: calc(100% - 32px);
+  box-shadow: 0 24px 80px rgba(0,0,0,.35);
+  transform: translateY(32px);
+  transition: transform .35s ease;
+}
+.cookie-overlay.visible .cookie-popup {
+  transform: translateY(0);
+}
+.cookie-popup-icon { font-size: 2.4rem; margin-bottom: 12px; }
+.cookie-popup h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.cookie-popup p {
+  font-size: .87rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+.cookie-popup p a { color: var(--gold); text-decoration: underline; }
+.cookie-popup-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cookie-popup-btns .btn { flex: 1; justify-content: center; min-width: 120px; }
+@media (max-width: 480px) {
+  .cookie-popup { padding: 28px 20px; }
+  .cookie-popup-btns .btn { flex: 1 0 100%; }
+}
+
+/* ── Footer (simplified) ─────────────────────────────────── */
+.footer-simple {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 22px 0;
+}
+.footer-simple .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-simple-copy {
+  font-size: .82rem;
+  color: rgba(255,255,255,.5);
+}
+.footer-simple-copy span { color: #e74c3c; }
+.footer-simple-copy strong { color: var(--gold); font-weight: 600; }
+.footer-legal-toggle {
+  font-size: .78rem;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  background: none;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50px;
+  padding: 5px 14px;
+  transition: color var(--transition), border-color var(--transition);
+  font-family: var(--font-body);
+}
+.footer-legal-toggle:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Legal panel (collapsed by default) */
+.legal-panel {
+  background: var(--navy-2);
+  border-top: 1px solid rgba(255,255,255,.07);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease, padding .4s ease;
+}
+.legal-panel.open { max-height: 400px; padding: 28px 0; }
+.legal-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+.legal-col h6 {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.legal-col p { font-size: .78rem; color: rgba(255,255,255,.5); line-height: 1.65; }
+.legal-col a { color: var(--gold); text-decoration: underline; }
+@media (max-width: 480px) { .legal-panel.open { max-height: 800px; } }
