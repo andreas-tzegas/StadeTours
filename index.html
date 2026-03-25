@@ -25,25 +25,17 @@
 <body>
 
 <!-- ── HEADER ──────────────────────────────────────────────── -->
-<header class="site-header scrolled" id="header">
+<header class="site-header" id="header">
   <div class="header-inner">
-    <a href="index.html" class="logo-brand">
-      <img src="images/Logo.png" alt="Logo" class="header-logo" onerror="this.style.display='none'">
-      <span class="logo">Stade<span>Tours</span></span>
-    </a>
+    <a href="index.html" class="logo-brand" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;"><img src="images/Logo.png" alt="Logo" style="height:36px;width:auto;object-fit:contain;" onerror="this.style.display='none'"><span style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;white-space:nowrap;">Stade<span style="color:#c9a84c;">Tours</span></span></a>
     <nav class="nav" id="nav">
-      <a href="index.html">Accueil</a>
+      <a href="index.html" class="active">Accueil</a>
       <a href="countries.html">Destinations</a>
       <a href="circuits.html">Circuits</a>
-      <a href="cart.html" class="nav-cart">
-        🛒
-        <span class="cart-badge" id="cart-badge"></span>
-      </a>
-      <a href="user.html" class="btn btn-primary btn-sm active">Mes Réservations</a>
+      <a href="cart.html" class="nav-cart">🛒<span class="cart-badge" id="cart-badge"></span></a>
+      <a href="user.html" class="btn btn-primary btn-sm">Mes Réservations</a>
     </nav>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -321,6 +313,46 @@ TESTIMONIALS.forEach(t => {
 });
 observeCards(".testimonial-card");
 observeCards(".fade-up");
+</script>
+
+<!-- ── COOKIE POPUP RGPD ─────────────────────────────────── -->
+<div class="cookie-overlay" id="cookie-overlay" style="position:fixed;inset:0;background:rgba(13,27,42,.75);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding-bottom:40px;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;">
+  <div class="cookie-popup" style="background:#fff;border-radius:20px;padding:36px 40px;max-width:520px;width:calc(100% - 32px);box-shadow:0 24px 80px rgba(0,0,0,.3);transform:translateY(24px);transition:transform .35s;">
+    <div style="font-size:2.2rem;margin-bottom:12px;">🍪</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.25rem;color:#0d1b2a;margin-bottom:10px;">Nous utilisons des cookies</h3>
+    <p style="font-size:.87rem;color:#6b7280;line-height:1.6;margin-bottom:24px;">StadeTours utilise des cookies essentiels pour le bon fonctionnement du site et des cookies analytiques pour améliorer votre expérience. Conformément au <strong>RGPD</strong>, votre consentement est requis.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button id="cookie-refuse" style="flex:1;min-width:120px;padding:12px 20px;border-radius:50px;border:2px solid #c9a84c;background:transparent;color:#c9a84c;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s;">Refuser</button>
+      <button id="cookie-accept" style="flex:1;min-width:120px;padding:12px 20px;border-radius:50px;border:none;background:#c9a84c;color:#0d1b2a;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s;">Accepter ✦</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = "st_cookie_consent";
+  var overlay = document.getElementById("cookie-overlay");
+  var popup   = overlay ? overlay.querySelector(".cookie-popup") : null;
+
+  function show() {
+    overlay.style.opacity    = "1";
+    overlay.style.visibility = "visible";
+    if (popup) popup.style.transform = "translateY(0)";
+  }
+  function hide(choice) {
+    localStorage.setItem(KEY, choice);
+    overlay.style.opacity    = "0";
+    overlay.style.visibility = "hidden";
+    if (popup) popup.style.transform = "translateY(24px)";
+  }
+
+  if (!localStorage.getItem(KEY)) {
+    setTimeout(show, 900);
+  }
+
+  document.getElementById("cookie-accept").onclick = function(){ hide("accepted"); };
+  document.getElementById("cookie-refuse").onclick = function(){ hide("refused"); };
+  overlay.onclick = function(e){ if (e.target === overlay) hide("refused"); };
+})();
 </script>
 </body>
 </html>
